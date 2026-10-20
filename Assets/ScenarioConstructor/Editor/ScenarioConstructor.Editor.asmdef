@@ -1,0 +1,6 @@
+{
+  "name": "ScenarioConstructor.Editor",
+  "rootNamespace": "ScenarioConstructor.Editor",
+  "references": ["UnityEditor.TestRunner"],
+  "includePlatforms": ["Editor"]
+}

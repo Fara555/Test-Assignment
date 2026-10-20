@@ -1,0 +1,5 @@
+{
+  "name": "ScenarioConstructor.Runtime",
+  "rootNamespace": "ScenarioConstructor",
+  "noEngineReferences": true
+}
