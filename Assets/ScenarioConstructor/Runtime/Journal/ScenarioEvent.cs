@@ -8,6 +8,8 @@ namespace ScenarioConstructor.Journal
     {
         public const string StepResolved = "step.resolved";
         public const string AttemptRejected = "attempt.rejected";
+        public const string StepActivated = "step.activated";
+        public const string StepProgressed = "step.progressed";
 
         public DateTimeOffset Timestamp { get; }
         public string StepId { get; }
