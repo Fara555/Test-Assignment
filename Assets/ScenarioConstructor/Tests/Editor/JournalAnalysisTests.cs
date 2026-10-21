@@ -12,6 +12,22 @@ namespace ScenarioConstructor.Tests
             new DateTimeOffset(2026, 10, 19, 0, 0, 0, TimeSpan.Zero);
 
         [Test]
+        public void AnalysisResultOwnsItsDiagnosticsForExternalAnalyzers()
+        {
+            var warnings = new List<string> { "Missing optional data." };
+            var result = new AnalysisResult(5, 10, true, warnings);
+            warnings.Clear();
+            Assert.That(result.Warnings.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void AnalysisResultRejectsScoresOutsideItsScale()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new AnalysisResult(101, 100, true));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new AnalysisResult(0, -1, true));
+        }
+
+        [Test]
         public void TrainingReferenceExampleScoresFifteenOutOfThirty()
         {
             var journal = Journal(Resolved("a", StepOutcome.Completed, 1),

@@ -5,7 +5,7 @@ using ScenarioConstructor.Journal;
 
 namespace ScenarioConstructor.Execution
 {
-    public sealed class ScenarioRunner
+    public sealed class ScenarioRunner : IScenarioExecution
     {
         private readonly ExecutionPlan plan;
         private readonly IExecutionPolicy policy;

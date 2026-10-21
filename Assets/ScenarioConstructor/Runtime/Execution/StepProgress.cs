@@ -18,7 +18,7 @@ namespace ScenarioConstructor.Execution
         public int AttemptNumber { get; }
         public int Violations { get; }
 
-        internal StepProgress(string stepId, StepStatus status, int attemptNumber, int violations)
+        public StepProgress(string stepId, StepStatus status, int attemptNumber, int violations)
         {
             StepId = stepId;
             Status = status;

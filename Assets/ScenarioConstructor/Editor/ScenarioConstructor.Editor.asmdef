@@ -1,6 +1,6 @@
 {
   "name": "ScenarioConstructor.Editor",
   "rootNamespace": "ScenarioConstructor.Editor",
-  "references": ["UnityEditor.TestRunner", "ScenarioConstructor.Runtime", "ScenarioConstructor.Unity"],
+  "references": ["UnityEditor.TestRunner", "ScenarioConstructor.Runtime", "ScenarioConstructor.Unity", "Unity.ugui", "Unity.InputSystem"],
   "includePlatforms": ["Editor"]
 }

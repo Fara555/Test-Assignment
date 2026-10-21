@@ -1,6 +1,6 @@
 {
   "name": "ScenarioConstructor.PlayMode.Tests",
   "rootNamespace": "ScenarioConstructor.Tests",
-  "references": ["ScenarioConstructor.Runtime", "ScenarioConstructor.Unity", "Unity.ugui"],
+  "references": ["ScenarioConstructor.Runtime", "ScenarioConstructor.Unity", "Unity.ugui", "Unity.InputSystem"],
   "optionalUnityReferences": ["TestAssemblies"]
 }

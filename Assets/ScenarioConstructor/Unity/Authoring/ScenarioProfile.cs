@@ -16,7 +16,7 @@ namespace ScenarioConstructor.Unity.Authoring
         [SerializeField, Tooltip("Reorder these batches to change activation. Members of one batch open together.")]
         private List<StepSetConfiguration> activationBatches = new List<StepSetConfiguration>();
         [SerializeField] private PendingActionBehavior pendingActions;
-        [SerializeField] private ExecutionPolicyAsset execution;
+        [SerializeField] private ScenarioExecutionAsset execution;
         [SerializeField] private ScenarioLoggerAsset logger;
         [SerializeField] private ScenarioAnalyzerAsset analyzer;
 
@@ -39,17 +39,16 @@ namespace ScenarioConstructor.Unity.Authoring
 
             var plan = new ExecutionPlan(scenarioId, definitions, BuildSets(groups, roster),
                 BuildSets(activationBatches, roster), pendingActions);
-            var policy = execution.CreatePolicy()
-                ?? throw new InvalidOperationException("The execution asset did not create a policy.");
-            policy.Validate(plan);
+            execution.Validate(plan);
             return plan;
         }
 
-        public ScenarioRunner CreateRunner()
+        public IScenarioExecution CreateRunner()
         {
             var plan = BuildPlan();
             var selectedLogger = logger;
-            return new ScenarioRunner(plan, execution.CreatePolicy(), id => selectedLogger.CreateLogger(plan, id));
+            return execution.CreateExecution(plan, id => selectedLogger.CreateLogger(plan, id))
+                ?? throw new InvalidOperationException("The execution asset did not create an executor.");
         }
 
         public bool TryValidate(out string diagnostic)

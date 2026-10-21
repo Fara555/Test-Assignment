@@ -17,7 +17,7 @@ namespace ScenarioConstructor.Unity.Scene
         [SerializeField] private bool startAutomatically = true;
         [SerializeField] private UnityEvent<string> onViolation = new UnityEvent<string>();
         [SerializeField] private UnityEvent onCompleted = new UnityEvent();
-        private ScenarioRunner runner;
+        private IScenarioExecution runner;
         private Dictionary<ScenarioStepAsset, string> stepBindings;
         private bool completionPublished;
 
@@ -27,6 +27,7 @@ namespace ScenarioConstructor.Unity.Scene
         public string RunId => runner?.RunId;
         public ScenarioJournal LastCompletedJournal { get; private set; }
         public event Action StateChanged;
+        public event Action<string> Violation;
 
         private void Start()
         {
@@ -96,7 +97,10 @@ namespace ScenarioConstructor.Unity.Scene
                 throw new ArgumentException("The action must target a step asset in the active profile.", nameof(step));
             var result = runner.Submit(stepId, signal);
             if (result.Status == ConditionStatus.Rejected)
+            {
                 onViolation.Invoke(result.Reason);
+                Violation?.Invoke(result.Reason);
+            }
             return result;
         }
 
@@ -105,6 +109,15 @@ namespace ScenarioConstructor.Unity.Scene
             if (runner == null)
                 throw new InvalidOperationException("Start a scenario before reading progress.");
             return runner.GetProgress(stepId);
+        }
+
+        public bool TryGetProgress(ScenarioStepAsset step, out StepProgress progress)
+        {
+            progress = default;
+            if (runner == null || step == null || !stepBindings.TryGetValue(step, out var id))
+                return false;
+            progress = runner.GetProgress(id);
+            return true;
         }
 
         public ScenarioJournal CaptureJournal()

@@ -41,6 +41,27 @@ namespace ScenarioConstructor.Tests
         public void DeleteFixtureAssets() => AssetDatabase.DeleteAsset(folder);
 
         [Test]
+        public void ExecutorFactoryCanReplaceTheConcreteRunnerWithoutDuplicatingSteps()
+        {
+            var replacement = UnityEngine.ScriptableObject.CreateInstance<ReplacementExecutionAsset>();
+            try
+            {
+                var originalStep = training.Steps[0];
+                SetReference(training, "execution", replacement);
+                var execution = training.CreateRunner();
+                Assert.That(execution, Is.Not.TypeOf<ScenarioRunner>());
+                execution.Submit("S02", new StepSignal("enter-b"));
+                Assert.That(execution.GetProgress("S02").Status, Is.EqualTo(StepStatus.Failed));
+                Assert.That(execution.GetProgress("S01").Status, Is.EqualTo(StepStatus.Skipped));
+                Assert.That(training.Steps[0], Is.SameAs(originalStep));
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(replacement);
+            }
+        }
+
+        [Test]
         public void SerializedExamplesAreValidAndShareAllTwelveStepAssets()
         {
             Assert.That(training.TryValidate(out var trainingDiagnostic), Is.True, trainingDiagnostic);

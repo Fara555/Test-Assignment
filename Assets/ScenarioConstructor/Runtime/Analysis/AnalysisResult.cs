@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace ScenarioConstructor.Analysis
@@ -9,12 +10,16 @@ namespace ScenarioConstructor.Analysis
         public bool IsComplete { get; }
         public IReadOnlyList<string> Warnings { get; }
 
-        internal AnalysisResult(int score, int maximumScore, bool isComplete, List<string> warnings)
+        public AnalysisResult(int score, int maximumScore, bool isComplete, IEnumerable<string> warnings = null)
         {
+            if (maximumScore < 0)
+                throw new ArgumentOutOfRangeException(nameof(maximumScore));
+            if (score < 0 || score > maximumScore)
+                throw new ArgumentOutOfRangeException(nameof(score));
             Score = score;
             MaximumScore = maximumScore;
             IsComplete = isComplete;
-            Warnings = new List<string>(warnings).AsReadOnly();
+            Warnings = new List<string>(warnings ?? Array.Empty<string>()).AsReadOnly();
         }
     }
 }
