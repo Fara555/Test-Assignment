@@ -1,0 +1,7 @@
+{
+  "name": "ScenarioConstructor.Authoring.Tests",
+  "rootNamespace": "ScenarioConstructor.Tests",
+  "references": ["ScenarioConstructor.Runtime", "ScenarioConstructor.Unity", "ScenarioConstructor.Editor"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}

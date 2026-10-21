@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46dfa8a5c145abe48a244e6f9fda559d, type: 3}
+  m_Name: Training
+  m_EditorClassIdentifier: ScenarioConstructor.Unity::ScenarioConstructor.Unity.Authoring.ScenarioProfile
+  scenarioId: inspection
+  steps:
+  - {fileID: 11400000, guid: d665e82c43e96e348a86c11e976bd741, type: 2}
+  - {fileID: 11400000, guid: 868a93bbc22f0114ba6ec1449a7219db, type: 2}
+  - {fileID: 11400000, guid: b0f90ea97bd12244581829f59620d10d, type: 2}
+  - {fileID: 11400000, guid: 442b97d3f6e1846419f1feac2716b6c8, type: 2}
+  - {fileID: 11400000, guid: 22fe048556da642428cf4482d9fa7c8d, type: 2}
+  - {fileID: 11400000, guid: b665dde2f69ee1641aa2cb7dfd5064dd, type: 2}
+  - {fileID: 11400000, guid: 3ee1cf48554ce5f45a62b565b4b7baba, type: 2}
+  - {fileID: 11400000, guid: c4e8748ae8b7f724db7e3df1885f5a8f, type: 2}
+  - {fileID: 11400000, guid: 901c5b9ab90ea4d49b8d4c204bf17274, type: 2}
+  - {fileID: 11400000, guid: 748b15426cb83114baaa041bd1e6d8df, type: 2}
+  - {fileID: 11400000, guid: c3c5fecffc6bebc4b881cfc95b1978b6, type: 2}
+  - {fileID: 11400000, guid: 89a2158061af7f64a84c19518f706d23, type: 2}
+  groups:
+  - id: group-1
+    steps:
+    - {fileID: 11400000, guid: d665e82c43e96e348a86c11e976bd741, type: 2}
+    - {fileID: 11400000, guid: 868a93bbc22f0114ba6ec1449a7219db, type: 2}
+    - {fileID: 11400000, guid: b0f90ea97bd12244581829f59620d10d, type: 2}
+    - {fileID: 11400000, guid: 442b97d3f6e1846419f1feac2716b6c8, type: 2}
+    - {fileID: 11400000, guid: 22fe048556da642428cf4482d9fa7c8d, type: 2}
+    - {fileID: 11400000, guid: b665dde2f69ee1641aa2cb7dfd5064dd, type: 2}
+    - {fileID: 11400000, guid: 3ee1cf48554ce5f45a62b565b4b7baba, type: 2}
+    - {fileID: 11400000, guid: c4e8748ae8b7f724db7e3df1885f5a8f, type: 2}
+    - {fileID: 11400000, guid: 901c5b9ab90ea4d49b8d4c204bf17274, type: 2}
+    - {fileID: 11400000, guid: 748b15426cb83114baaa041bd1e6d8df, type: 2}
+    - {fileID: 11400000, guid: c3c5fecffc6bebc4b881cfc95b1978b6, type: 2}
+    - {fileID: 11400000, guid: 89a2158061af7f64a84c19518f706d23, type: 2}
+  activationBatches:
+  - id: batch-1
+    steps:
+    - {fileID: 11400000, guid: d665e82c43e96e348a86c11e976bd741, type: 2}
+    - {fileID: 11400000, guid: 868a93bbc22f0114ba6ec1449a7219db, type: 2}
+    - {fileID: 11400000, guid: b0f90ea97bd12244581829f59620d10d, type: 2}
+    - {fileID: 11400000, guid: 442b97d3f6e1846419f1feac2716b6c8, type: 2}
+  - id: batch-2
+    steps:
+    - {fileID: 11400000, guid: 22fe048556da642428cf4482d9fa7c8d, type: 2}
+  - id: batch-3
+    steps:
+    - {fileID: 11400000, guid: b665dde2f69ee1641aa2cb7dfd5064dd, type: 2}
+  - id: batch-4
+    steps:
+    - {fileID: 11400000, guid: 3ee1cf48554ce5f45a62b565b4b7baba, type: 2}
+  - id: batch-5
+    steps:
+    - {fileID: 11400000, guid: c4e8748ae8b7f724db7e3df1885f5a8f, type: 2}
+  - id: batch-6
+    steps:
+    - {fileID: 11400000, guid: 901c5b9ab90ea4d49b8d4c204bf17274, type: 2}
+    - {fileID: 11400000, guid: 748b15426cb83114baaa041bd1e6d8df, type: 2}
+  - id: batch-7
+    steps:
+    - {fileID: 11400000, guid: c3c5fecffc6bebc4b881cfc95b1978b6, type: 2}
+    - {fileID: 11400000, guid: 89a2158061af7f64a84c19518f706d23, type: 2}
+  pendingActions: 0
+  execution: {fileID: 11400000, guid: b12828a2828282545ad39a0db4ea94cb, type: 2}
+  logger: {fileID: 11400000, guid: 3f6b8226f93b3044db2c40e73ca73cef, type: 2}
+  analyzer: {fileID: 11400000, guid: 8ea017de2e714ca49a0314c935776055, type: 2}

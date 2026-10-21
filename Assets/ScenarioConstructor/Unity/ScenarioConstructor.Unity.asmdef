@@ -1,0 +1,5 @@
+{
+  "name": "ScenarioConstructor.Unity",
+  "rootNamespace": "ScenarioConstructor.Unity",
+  "references": ["ScenarioConstructor.Runtime", "Unity.ugui"]
+}
