@@ -54,6 +54,19 @@ namespace ScenarioConstructor.Unity.Scene
                 diagnostic = "Select a session, a step, and a nonempty action identifier.";
                 return false;
             }
+            try
+            {
+                if (!step.BuildDefinition().Rule.Accepts(actionId))
+                {
+                    diagnostic = $"Action '{actionId}' is not accepted by step '{step.StepId}'. Check the step's rule and action identifier.";
+                    return false;
+                }
+            }
+            catch (Exception exception) when (exception is ArgumentException || exception is InvalidOperationException)
+            {
+                diagnostic = $"Cannot validate action for step '{step.name}': {exception.Message}";
+                return false;
+            }
             var ids = new HashSet<string>(StringComparer.Ordinal);
             foreach (var binding in stateFlags)
             {

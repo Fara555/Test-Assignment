@@ -5,6 +5,7 @@ using ScenarioConstructor.Conditions;
 using ScenarioConstructor.Editor;
 using ScenarioConstructor.Execution;
 using ScenarioConstructor.Unity.Authoring;
+using ScenarioConstructor.Unity.Scene;
 using UnityEditor;
 using UnityEngine;
 
@@ -168,6 +169,59 @@ namespace ScenarioConstructor.Tests
             var runner = training.CreateRunner();
             Assert.That(runner.Submit("S05", new StepSignal("perform")).Status, Is.EqualTo(ConditionStatus.Ignored));
             Assert.That(runner.GetProgress("S05").Violations, Is.Zero);
+        }
+
+        [TestCase(0, "perform", true)]
+        [TestCase(1, "enter-a", true)]
+        [TestCase(1, "enter-b", true)]
+        [TestCase(0, "perfrom", false)]
+        [TestCase(0, "Perform", false)]
+        public void RelayValidatesActionAgainstSelectedStepRule(int stepIndex, string actionId, bool expected)
+        {
+            var step = training.Steps[stepIndex];
+            Assert.That(ValidateRelay(step, actionId, out var diagnostic), Is.EqualTo(expected), diagnostic);
+            if (!expected)
+            {
+                Assert.That(diagnostic, Does.Contain(actionId));
+                Assert.That(diagnostic, Does.Contain(step.StepId));
+            }
+        }
+
+        [Test]
+        public void RelayReportsInvalidStepConfigurationWithoutThrowing()
+        {
+            var step = UnityEngine.Object.Instantiate(training.Steps[0]);
+            try
+            {
+                SetReference(step, "rule", null);
+                Assert.That(ValidateRelay(step, "perform", out var diagnostic), Is.False);
+                Assert.That(diagnostic, Does.Contain("condition asset"));
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(step);
+            }
+        }
+
+        private static bool ValidateRelay(ScenarioStepAsset step, string actionId, out string diagnostic)
+        {
+            var root = new GameObject("Action validation fixture");
+            root.SetActive(false);
+            try
+            {
+                var session = root.AddComponent<ScenarioSession>();
+                var relay = root.AddComponent<ScenarioActionRelay>();
+                SetReference(relay, "session", session);
+                SetReference(relay, "step", step);
+                var settings = new SerializedObject(relay);
+                settings.FindProperty("actionId").stringValue = actionId;
+                settings.ApplyModifiedPropertiesWithoutUndo();
+                return relay.TryValidate(out diagnostic);
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(root);
+            }
         }
 
         private static void SetReference(UnityEngine.Object target, string field, UnityEngine.Object value)

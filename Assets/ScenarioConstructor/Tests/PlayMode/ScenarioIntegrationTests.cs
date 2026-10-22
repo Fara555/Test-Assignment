@@ -54,6 +54,28 @@ namespace ScenarioConstructor.Tests
         }
 
         [UnityTest]
+        public IEnumerator InvalidActionReportsConfigurationErrorWithoutConsumingAttempt()
+        {
+            CreateFixture();
+            StartFixture();
+            yield return null;
+            var settings = new SerializedObject(relay);
+            settings.FindProperty("actionId").stringValue = "perfrom";
+            settings.ApplyModifiedPropertiesWithoutUndo();
+            var eventCount = session.CaptureJournal().Events.Count;
+            LogAssert.Expect(LogType.Error,
+                "Action 'perfrom' is not accepted by step 'step'. Check the step's rule and action identifier.");
+            relay.Raise();
+            Assert.That(session.GetProgress("step").AttemptNumber, Is.EqualTo(1));
+            Assert.That(session.GetProgress("step").Violations, Is.Zero);
+            Assert.That(session.CaptureJournal().Events.Count, Is.EqualTo(eventCount));
+            settings.FindProperty("actionId").stringValue = "perform";
+            settings.ApplyModifiedPropertiesWithoutUndo();
+            relay.Raise();
+            Assert.That(session.IsFinished, Is.True);
+        }
+
+        [UnityTest]
         public IEnumerator UnityEventCanCompleteStepThroughRelay()
         {
             CreateFixture();
